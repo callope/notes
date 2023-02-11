@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\title{Notes on Nmap functionality}
+\author{Torres}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{The Network Mapper}
+
+Network mapper. It's a C tool that scan networks sending
+raw IP packages to hosts and return open ports, information
+on the services running on those open ports, operating
+system running on the host, etc.
+
+Most hackers use this tool because it gives you absurd
+advantage in the recognition phase (it's much easier to
+exploit a system if you know the vulnerabilities it probably
+has, and you'll only know that if you know at least the
+services running on the ports of the system).
+
+\section{TCP Syn Scan \& Connect Scan}
+
+TCP Syn scan will determine the status of ports in the remote
+target. RFC 793 defines the required behavior of any TCP/IP device
+is that an incoming connection request begins with a SYN package,
+which in turn must be followed by a SYN/ACK\footnote{Syn stands
+for "synchronize", and "ACK" for "acknowledge"} packet from
+the receiving service.
+
+The main characteristic of Syn scan is that it doesn't complete
+the three way handshake. The SYN/ACk package will never reach the
+host system, and therefore you don't need to waste more time
+connecting to a port.
+
+The scanning rate is extremely fast because no time is wasted
+completing the handshake or tearing down the connection. This
+technique allows an attacker to scan through stateful firewalls
+due to the common configuration that TCP SYN segments for a new
+connection will be allowed for almost any port. TCP SYN scanning
+can also immediately detect 3 of the 4 important types of port
+status: open, closed, and filtered.
+
+\end{document}
